@@ -1,9 +1,8 @@
-# XXminer
-超简单！高度智能化的挖矿软件
+**超简单！高度智能化的挖矿软件**
 
 ![](https://github.com/Mini-Digger/XXminer/blob/main/pic.jpg)
 
-特色：
+**特色：**
 
 1、填钱包即可
 
