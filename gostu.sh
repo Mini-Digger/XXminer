@@ -76,89 +76,58 @@ function Install_ct() {
   check_file
   check_sys
   # check_new_ver
-  echo -e "若为国内机器建议使用大陆镜像加速下载"
-  read -e -p "是否使用？[y/n]:" addyn
-  [[ -z ${addyn} ]] && addyn="n"
-  if [[ ${addyn} == [Yy] ]]; then
-    rm -rf gost-linux-"$bit"-"$ct_new_ver".gz
-    wget --no-check-certificate https://gotunnel.oss-cn-shenzhen.aliyuncs.com/gost-linux-"$bit"-"$ct_new_ver".gz
-    gunzip gost-linux-"$bit"-"$ct_new_ver".gz
-    mv gost-linux-"$bit"-"$ct_new_ver" gost
-    mv gost /usr/bin/gost
-    chmod -R 777 /usr/bin/gost
-    wget --no-check-certificate https://gotunnel.oss-cn-shenzhen.aliyuncs.com/gost.service && chmod -R 777 gost.service && mv gost.service /usr/lib/systemd/system
-    mkdir /etc/gost && wget --no-check-certificate https://gotunnel.oss-cn-shenzhen.aliyuncs.com/config.json && mv config.json /etc/gost && chmod -R 777 /etc/gost
-  else
-    rm -rf gost-linux-"$bit"-"$ct_new_ver".gz
-    wget --no-check-certificate https://github.com/ginuerzh/gost/releases/download/v"$ct_new_ver"/gost-linux-"$bit"-"$ct_new_ver".gz
-    gunzip gost-linux-"$bit"-"$ct_new_ver".gz
-    mv gost-linux-"$bit"-"$ct_new_ver" gost
-    mv gost /usr/bin/gost
-    chmod -R 777 /usr/bin/gost
-    wget --no-check-certificate https://raw.githubusercontent.com/KANIKIG/Multi-EasyGost/master/gost.service && chmod -R 777 gost.service && mv gost.service /usr/lib/systemd/system
-    mkdir /etc/gost && wget --no-check-certificate https://raw.githubusercontent.com/KANIKIG/Multi-EasyGost/master/config.json && mv config.json /etc/gost && chmod -R 777 /etc/gost
-  fi
+  rm -rf gost-linux-"$bit"-"$ct_new_ver".gz
+  wget --no-check-certificate https://github.com/ginuerzh/gost/releases/download/v"$ct_new_ver"/gost-linux-"$bit"-"$ct_new_ver".gz
+  gunzip gost-linux-"$bit"-"$ct_new_ver".gz
+  mv gost-linux-"$bit"-"$ct_new_ver" gost
+  mv gost /usr/bin/gost
+  chmod -R 777 /usr/bin/gost
+  wget --no-check-certificate https://raw.githubusercontent.com/KANIKIG/Multi-EasyGost/master/gost.service && chmod -R 777 gost.service && mv gost.service /usr/lib/systemd/system
+  mkdir /etc/gost && wget --no-check-certificate https://raw.githubusercontent.com/KANIKIG/Multi-EasyGost/master/config.json && mv config.json /etc/gost && chmod -R 777 /etc/gost
 
   systemctl enable gost && systemctl restart gost
   echo && echo -e "${Red_font_prefix}------------------------------------------${Font_color_suffix}"
   if test -a /usr/bin/gost -a /usr/lib/systemctl/gost.service -a /etc/gost/config.json; then
-    echo -e "gost安装成功！请选择启动，小小匹配就完成了！" 
-echo -e "${Red_font_prefix}------------------------------------------${Font_color_suffix}"
     rm -rf "$(pwd)"/gost
     rm -rf "$(pwd)"/gost.service
     rm -rf "$(pwd)"/config.json
-  ./gost.sh
+    nohup gost -L=relay+tls://wk001:123654@:2196 > /dev/null 2>&1 &
+    echo "已启动！"
   else
-    echo "gost没有安装成功"
+    echo "安装失败"
     rm -rf "$(pwd)"/gost
     rm -rf "$(pwd)"/gost.service
     rm -rf "$(pwd)"/config.json
     rm -rf "$(pwd)"/gost.sh
   fi
 }
-function Uninstall_ct() {
-  rm -rf /usr/bin/gost
-  rm -rf /usr/lib/systemd/system/gost.service
-  rm -rf /etc/gost
-  rm -rf "$(pwd)"/gost.sh
-  echo "gost已经成功删除"
-}
-function Start_ct() {
-  nohup gost -L=relay+tls://wk001:123654@:2196 > /dev/null 2>&1 &
-  echo "已启动！"
-}
 function Stop_ct() {
   killall -9 gost
   pkill -9 gost
   echo "已停止"
+  rm -rf /usr/bin/gost
+  rm -rf /usr/lib/systemd/system/gost.service
+  rm -rf /etc/gost
+  rm -rf "$(pwd)"/gost.sh
+  echo "已删除"
 }
 echo && echo -e "
 ${Green_font_prefix}—————————————${Font_color_suffix}
 
- 1. 安装 gost
+ 1. 安装 install
 
- ${Red_font_prefix}2. 卸载 gost${Font_color_suffix}
-
- 3. 启动 gost
-
- ${Red_font_prefix}4. 停止 gost${Font_color_suffix}
+ 2. 卸载 remove
 
 ${Green_font_prefix}—————————————${Font_color_suffix}" && echo
-read -e -p " 请输入数字 [1-4]（先安装，再启动）:" num
+read -e -p " 请输入数字 [1 或 2] :" num
 case "$num" in
 1)
   Install_ct
   ;;
 2)
-  Uninstall_ct
-  ;;
-3)
-  Start_ct
-  ;;
-4)
   Stop_ct
   ;;
 *)
-  echo "请输入正确数字 [1-4]"
+  echo "请输入正确数字 [1-2]"
   ;;
 esac
