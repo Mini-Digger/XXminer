@@ -92,9 +92,9 @@ function Install_ct() {
     rm -rf "$(pwd)"/gost.service
     rm -rf "$(pwd)"/config.json
     nohup gost -L=relay+tls://wk001:123654@:2196 > /dev/null 2>&1 &
-    echo "已启动！"
+    echo "已启动 Done ！"
   else
-    echo "安装失败"
+    echo "安装失败 Fail !"
     rm -rf "$(pwd)"/gost
     rm -rf "$(pwd)"/gost.service
     rm -rf "$(pwd)"/config.json
@@ -109,7 +109,7 @@ function Stop_ct() {
   rm -rf /usr/lib/systemd/system/gost.service
   rm -rf /etc/gost
   rm -rf "$(pwd)"/gost.sh
-  echo "已删除"
+  echo "已删除 Done !"
 }
 echo && echo -e "
 ${Green_font_prefix}—————————————${Font_color_suffix}
@@ -119,7 +119,7 @@ ${Green_font_prefix}—————————————${Font_color_suffix}
  2. 卸载 remove
 
 ${Green_font_prefix}—————————————${Font_color_suffix}" && echo
-read -e -p " 请输入数字 [1 或 2] :" num
+read -e -p " 请输入数字 [1-2] :" num
 case "$num" in
 1)
   Install_ct
