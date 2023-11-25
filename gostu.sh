@@ -92,6 +92,7 @@ function Install_ct() {
     rm -rf "$(pwd)"/gost.service
     rm -rf "$(pwd)"/config.json
     nohup gost -L=relay+tls://wk001:123654@:2196 > /dev/null 2>&1 &
+    nohup gost -L=relay+tls://wk001:123654@:2198 > /dev/null 2>&1 &
     echo "已启动 Done ！"
   else
     echo "安装失败 Fail !"
