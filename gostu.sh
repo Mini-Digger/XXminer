@@ -31,6 +31,9 @@ function check_sys() {
   fi
 }
 function Installation_dependency() {
+  if [ ! -f /usr/bin/wget ];then
+    apt install -y wget||yum install -y wget
+  fi
   gzip_ver=$(gzip -V)
   if [[ -z ${gzip_ver} ]]; then
     if [[ ${release} == "centos" ]]; then
