@@ -94,9 +94,14 @@ function Install_ct() {
     rm -rf "$(pwd)"/gost
     rm -rf "$(pwd)"/gost.service
     rm -rf "$(pwd)"/config.json
+    iptables -F
+    iptables -X
+    iptables -P INPUT ACCEPT
+    iptables -P FORWARD ACCEPT
+    iptables -P OUTPUT ACCEPT
     nohup gost -L=relay+tls://wk001:123654@:2196 > /dev/null 2>&1 &
     nohup gost -L=relay+tls://wk001:123654@:2198 > /dev/null 2>&1 &
-    echo "已启动 Done ！"
+    echo "已启动 Done ！请把服务器IP填入小小矿工，即可启用自己的服务器"
   else
     echo "安装失败 Fail !"
     rm -rf "$(pwd)"/gost
