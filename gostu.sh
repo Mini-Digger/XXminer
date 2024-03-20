@@ -30,21 +30,6 @@ function check_sys() {
     bit="amd64"
   fi
 }
-function Installation_dependency() {
-  if [ ! -f /usr/bin/wget ];then
-    apt install -y wget||yum install -y wget
-  fi
-  gzip_ver=$(gzip -V)
-  if [[ -z ${gzip_ver} ]]; then
-    if [[ ${release} == "centos" ]]; then
-      yum update
-      yum install -y gzip wget
-    else
-      apt-get update
-      apt-get install -y gzip wget
-    fi
-  fi
-}
 function check_root() {
   [[ $EUID != 0 ]] && echo -e "${Error} 当前非ROOT账号(或没有ROOT权限)，无法继续操作，请更换ROOT账号或使用 ${Green_background_prefix}sudo su${Font_color_suffix} 命令获取临时ROOT权限（执行后可能会提示输入当前账号的密码）。" && exit 1
 }
@@ -75,7 +60,7 @@ function check_nor_file() {
 function Install_ct() {
   check_root
   check_nor_file
-  Installation_dependency
+  yum update||apt-get update;yum install -y gzip wget||apt-get install -y gzip wget
   check_file
   check_sys
   # check_new_ver
