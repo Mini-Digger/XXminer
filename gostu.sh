@@ -60,7 +60,8 @@ function check_nor_file() {
 function Install_ct() {
   check_root
   check_nor_file
-  yum update||apt-get update;yum install -y gzip wget||apt-get install -y gzip wget
+  yum update||apt-get update
+  yum install -y gzip wget||apt-get install -y gzip wget
   check_file
   check_sys
   # check_new_ver
