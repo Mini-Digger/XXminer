@@ -2,6 +2,8 @@
 
 ![image](https://github.com/Mini-Digger/XXminer/blob/main/GUI1.png)
 
+![image](https://github.com/Mini-Digger/XXminer/blob/main/QK.png)
+
 特点：
 
 1、填钱包即开挖    
