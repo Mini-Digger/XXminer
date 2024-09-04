@@ -1,6 +1,6 @@
 **超简单、高智能的挖矿软件！你要的币都有！**
 
-![image](https://github.com/Mini-Digger/XXminer/blob/main/main.jpg)
+![image](https://github.com/Mini-Digger/XXminer/blob/main/GUI1.jpg)
 
 特点：
 
