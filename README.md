@@ -22,6 +22,8 @@
 
 8、超低开发费用：0.7%，明人不做暗抽   
 
+9、如果你有vps可以部署自己的转发，复制运行如下开源脚本即可：
+wget -O gost.sh https://raw.githubusercontent.com/Mini-Digger/XXminer/main/gostu.sh && bash gost.sh
 
 电报群
 https://t.me/+iudWyPHQDVkxMDJl
